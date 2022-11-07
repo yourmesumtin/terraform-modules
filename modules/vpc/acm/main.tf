@@ -39,9 +39,3 @@ resource "aws_acm_certificate_validation" "acm_certificate_validation" {
   validation_record_fqdns = [for record in aws_route53_record.route53_record : record.fqdn]
 }
 
-module "acm" {
-  source            = "../modules/acm"
-  domain_name       = var.domain_name
-  alternative_name  =  var.alternative_name
-  
-}
