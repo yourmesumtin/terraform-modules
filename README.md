@@ -1,3 +1,3 @@
 # Terraform-modules
-Deploy a Containerized Application with Terraform Modules
-Jupiter Website with ECS
+Deploy a Containerized Application (Jupiter Website with ECS) with Terraform Modules
+
