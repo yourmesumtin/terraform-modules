@@ -22,7 +22,7 @@ module "vpc" {
 }
 # create nat gateways
 module "nat_gateway" {
-  source                     = "../modules/vpc/nat-gateway"
+  source                     = "../modules/nat-gateway"
   public_subnet_az1_id       = module.vpc.public_subnet_az1_id
   internet_gateway           = module.vpc.internet_gateway
   public_subnet_az2_id       = module.vpc.public_subnet_az2_id
@@ -35,19 +35,19 @@ module "nat_gateway" {
 
 # create security group
 module "security_group" {
-  source = "../modules/vpc/security-groups"
+  source = "../modules/security-groups"
   vpc_id = module.vpc.vpc_id
 
 }
 
 # create ecs task execution
 module "ecs_task_execution_role" {
-  source       = "../modules/vpc/ecs-tasks-execution-role"
+  source       = "../modules/ecs-tasks-execution-role"
   project_name = module.vpc.project_name
 }
 # create AWS certificate manager
 module "acm" {
-  source           = "../modules/vpc/acm"
+  source           = "../modules/acm"
   domain_name      = var.domain_name
   alternative_name = var.alternative_name
 
@@ -55,7 +55,7 @@ module "acm" {
 
 # create application load balancer
 module "application_load_balancer" {
-  source                = "../modules/vpc/alb"
+  source                = "../modules/alb"
   project_name          = module.vpc.project_name
   alb_security_group_id = module.security_group.alb_security_group_id
   public_subnet_az1_id  = module.vpc.public_subnet_az1_id
