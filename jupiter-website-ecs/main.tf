@@ -1,7 +1,7 @@
 # configure aws provider
 provider "aws" {
   region  = var.region
-  profile = "terraform-user"
+  profile = "default"
 }
 
 # create vpc
@@ -64,6 +64,27 @@ module "application_load_balancer" {
   certificate_arn       = module.acm.certificate_arn
 }
 
+# create ECS
+module "ecs" {
+  source                       = "../modules/ecs"
+  project_name                 = module.vpc.project_name
+  ecs_tasks_execution_role_arn = module.ecs_task_execution_role.ecs_tasks_execution_role_arn
+  container_image              = var.container_image
+  region                       = module.vpc.region
+  private_app_subnet_az1_id    = module.vpc.private_app_subnet_az1_id
+  private_app_subnet_az2_id    = module.vpc.private_app_subnet_az2_id
+  ecs_security_group_id        = module.security_group.ecs_security_group_id
+  alb_target_group_arn         = module.application_load_balancer.alb_target_group_arn
 
+
+}
+
+#create ASG
+module "auto_scaling_group" {
+  source           = "../modules/asg"
+  ecs_cluster_name = module.ecs.ecs_cluster_name
+  ecs_service_name = module.ecs.ecs_service_name
+
+}
 
 
