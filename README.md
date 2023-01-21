@@ -1,2 +1,3 @@
 # Terraform-modules
-Repository to store Terraform modules
+Deploy a Containerized Application (Jupiter Website with ECS) with Terraform Modules
+
