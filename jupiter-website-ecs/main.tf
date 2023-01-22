@@ -87,4 +87,19 @@ module "auto_scaling_group" {
 
 }
 
+#create Route53
+module "route-53" {
+  source                             = "../modules/route53"
+  domain_name                        = module.acm.domain_name
+  record_name                        = var.record_name
+  application_load_balancer_dns_name = module.application_load_balancer.application_load_balancer_dns_name
+  application_load_balancer_zone_id  = module.application_load_balancer.application_load_balancer_zone_id
+}
 
+
+#creat output
+
+output "website_url" {
+  value = join ("",["https://", var.record_name, ".", var.domain_name])
+  
+}
