@@ -1,3 +1,8 @@
+# use data source to get all avalablility zones in region
+data "aws_availability_zones" "available_zones" {
+  state = "available"
+}
+
 # create vpc
 resource "aws_vpc" "vpc" {
   cidr_block              = var.vpc_cidr
@@ -18,8 +23,7 @@ resource "aws_internet_gateway" "internet_gateway" {
   }
 }
 
-# use data source to get all avalablility zones in region
-data "aws_availability_zones" "available_zones" {}
+
 
 # create public subnet az1
 resource "aws_subnet" "public_subnet_az1" {
