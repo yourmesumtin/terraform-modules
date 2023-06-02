@@ -8,6 +8,7 @@
 #     dynamodb_table = "terraform-state-lock"
 #     encrypt        = true
 #   }
+#   }
 
 terraform {
   cloud {
@@ -18,3 +19,8 @@ terraform {
     }
   }
 }
+
+# terraform {
+#   backend "local" {
+#   }
+# }
